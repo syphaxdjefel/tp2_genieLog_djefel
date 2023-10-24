@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="theatricalplays.StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-24T14:33:51" hostname="ada.local.isima.fr" time="0.182">
+<testsuite name="theatricalplays.StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-24T15:04:27" hostname="ada.local.isima.fr" time="0.174">
   <properties/>
-  <testcase name="exampleStatement()" classname="theatricalplays.StatementPrinterTests" time="0.173"/>
+  <testcase name="exampleStatement()" classname="theatricalplays.StatementPrinterTests" time="0.166"/>
   <testcase name="statementWithNewPlayTypes()" classname="theatricalplays.StatementPrinterTests" time="0.006"/>
   <system-out><![CDATA[Statement for BigCo
   Hamlet: $650.00 (55 seats)
