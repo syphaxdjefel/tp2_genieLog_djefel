@@ -12,7 +12,7 @@ public class TextStatementRenderer implements StatementRenderer {
         
         NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
         StringBuilder result = new StringBuilder();
-        result.append(String.format("Statement for %s\n", invoice.customer));
+        result.append(String.format("Statement for %s (Customer ID: %s)\n", invoice.customer.getName(), invoice.customer.getClientNumber()));
         
         for (Performance perf : invoice.performances) {
             Play play = plays.get(perf.playID);
@@ -21,6 +21,8 @@ public class TextStatementRenderer implements StatementRenderer {
 
         result.append(String.format("Amount owed is %s\n", frmt.format(calculator.totalAmount)));
         result.append(String.format("You earned %s credits\n", calculator.volumeCredits));
+        result.append(String.format("Remaining loyalty points: %s\n", invoice.customer.getLoyaltyPoints())); 
+
         return result.toString();
     }
     

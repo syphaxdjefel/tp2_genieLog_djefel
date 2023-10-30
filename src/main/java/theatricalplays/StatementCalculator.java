@@ -18,6 +18,13 @@ public class StatementCalculator {
             this.totalAmount += calculateAmountForPerformance(play, perf);
             this.volumeCredits += calculateVolumeCreditsForPerformance(play, perf);
         }
+
+        // Check for loyalty discount
+        Customer customer = invoice.customer;
+        if (customer.canRedeemLoyaltyDiscount()) {
+            this.totalAmount -= 15; 
+            customer.redeemLoyaltyDiscount(); 
+        }
     }
 
     public double calculateAmountForPerformance(Play play, Performance perf) {
