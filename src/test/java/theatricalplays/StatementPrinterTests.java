@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
+import static org.approvaltests.Approvals.verifyHtml;
 
 public class StatementPrinterTests {
 
@@ -23,9 +24,9 @@ public class StatementPrinterTests {
                 new Performance("othello", 40)));
 
         StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice, plays);
+        var result = statementPrinter.toHtml(invoice, plays);
 
-        verify(result);
+        verifyHtml(result);
     }
    
 }

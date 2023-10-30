@@ -27,6 +27,35 @@ public class StatementPrinter {
         appendFooterDetails(result, totalAmount, volumeCredits, frmt);
         return result.toString();
     }
+
+    public String toHtml(Invoice invoice, Map<String, Play> plays) {
+        double totalAmount = 0;
+        int volumeCredits = 0;
+        StringBuilder result = new StringBuilder();
+
+        result.append("<html><head><title>Statement</title></head><body>");
+        result.append(String.format("<h1>Statement for %s</h1>", invoice.customer));
+        result.append("<table><thead><tr><th>Play</th><th>Seats</th><th>Cost</th></tr></thead><tbody>");
+
+        NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
+
+        for (Performance perf : invoice.performances) {
+            Play play = plays.get(perf.playID);
+            double thisAmount = calculateAmountForPerformance(play, perf);
+
+            volumeCredits += calculateVolumeCreditsForPerformance(play, perf);
+
+            appendPerformanceDetailsHtml(result, play, thisAmount, perf, frmt);
+            totalAmount += thisAmount;
+        }
+
+        result.append("</tbody></table>");
+        appendFooterDetailsHtml(result, totalAmount, volumeCredits, frmt);
+        result.append("</body></html>");
+
+        return result.toString();
+    }
+
     private double calculateAmountForPerformance(Play play, Performance perf) {  
         double thisAmount = 0;  
 
@@ -66,4 +95,17 @@ public class StatementPrinter {
 
 
 
-} 
+    
+
+    private void appendPerformanceDetailsHtml(StringBuilder result, Play play, double thisAmount, Performance perf, NumberFormat frmt) {
+        result.append(String.format("<tr><td>%s</td><td>%s</td><td>%s</td></tr>", play.name, perf.audience, frmt.format(thisAmount)));
+    }
+
+    private void appendFooterDetailsHtml(StringBuilder result, double totalAmount, int volumeCredits, NumberFormat frmt) {
+        result.append(String.format("<p>Amount owed is %s</p>", frmt.format(totalAmount)));
+        result.append(String.format("<p>You earned %s credits</p>", volumeCredits));
+    }
+
+
+
+}
