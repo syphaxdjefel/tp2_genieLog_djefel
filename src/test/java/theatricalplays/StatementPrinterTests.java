@@ -13,9 +13,9 @@ public class StatementPrinterTests {
     @Test
     void exampleStatement() {
         Map<String, Play> plays = Map.of(
-                "hamlet",  new Play("Hamlet", "tragedy"),
-                "as-like", new Play("As You Like It", "comedy"),
-                "othello", new Play("Othello", "tragedy"));
+                "hamlet",  new Play("Hamlet", PlayType.TRAGEDY),
+                "as-like", new Play("As You Like It", PlayType.COMEDY),
+                "othello", new Play("Othello", PlayType.TRAGEDY));
 
         Invoice invoice = new Invoice("BigCo", List.of(
                 new Performance("hamlet", 55),
@@ -24,24 +24,12 @@ public class StatementPrinterTests {
 
         StatementPrinter statementPrinter = new StatementPrinter();
         var result = statementPrinter.print(invoice, plays);
-        System.out.println(result);
 
         verify(result);
     }
-
-    @Test
-    void statementWithNewPlayTypes() {
-        Map<String, Play> plays = Map.of(
-                "henry-v",  new Play("Henry V", "history"),
-                "as-like", new Play("As You Like It", "pastoral"));
-
-        Invoice invoice = new Invoice("BigCo", List.of(
-                new Performance("henry-v", 53),
-                new Performance("as-like", 55)));
-
-        StatementPrinter statementPrinter = new StatementPrinter();
-        Assertions.assertThrows(Error.class, () -> {
-            statementPrinter.print(invoice, plays);
-        });
-    }
+   
 }
+
+
+
+   
